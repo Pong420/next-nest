@@ -1,0 +1,45 @@
+{
+  "private": true,
+  "name": "next-nest",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "start": "yarn web start",
+    "dev": "lerna run dev --stream --parallel",
+    "build": "lerna run build --include-dependencies --stream",
+    "web": "yarn workspace @next-nest/web",
+    "server": "yarn workspace @next-nest/server",
+    "preinstall": "lerna run preinstall --stream --parallel",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --rule 'no-console: [\"error\", { allow: [\"warn\", \"error\"] }]' --max-warnings=0",
+      "prettier --ignore-path .eslintignore --write"
+    ],
+    "{*.json,.{babelrc,eslintrc,prettierrc}}": [
+      "prettier --ignore-path .eslintignore --write"
+    ],
+    "*.{css,scss}": [
+      "prettier --ignore-path .eslintignore --single-quote --write"
+    ],
+    "*.{yml,md}": [
+      "prettier --ignore-path .eslintignore --single-quote --write"
+    ]
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.28.2",
+    "@typescript-eslint/parser": "^4.28.2",
+    "eslint": "^7.30.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "husky": "^7.0.2",
+    "lerna": "^4.0.0",
+    "lint-staged": "^11.1.2",
+    "prettier": "^2.3.2"
+  }
+}
