@@ -1,32 +1,20 @@
-import 'reflect-metadata';
-import http from 'http';
+import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
-import { INestApplication } from '@nestjs/common';
-import { NextApiHandler } from 'next';
 import { AppModule } from './app.module';
 
-let app: INestApplication;
-let appPromise: Promise<INestApplication>;
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule);
 
-export async function getApp() {
-  if (app) return app;
+  app.setGlobalPrefix('api');
 
-  if (!appPromise) {
-    appPromise = new Promise<INestApplication>(async resolve => {
-      const appInCreation = await NestFactory.create(AppModule);
-      appInCreation.setGlobalPrefix('api');
-      await appInCreation.init();
-      resolve(appInCreation);
-    });
-  }
+  const configService = app.get(ConfigService);
 
-  app = await appPromise;
-  return app;
+  const PORT = configService.get<number>('PORT', 5000);
+
+  await app.listen(PORT, '0.0.0.0');
+
+  // eslint-disable-next-line
+  console.log(`server listening on port ${PORT}`);
 }
 
-export async function getListener() {
-  const app = await getApp();
-  const server: http.Server = app.getHttpServer();
-  const [listener] = server.listeners('request') as NextApiHandler[];
-  return listener;
-}
+bootstrap();

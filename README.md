@@ -2,6 +2,10 @@
 
 Refer to [Skn0tt/nextjs-nestjs-integration-example](https://github.com/Skn0tt/nextjs-nestjs-integration-example) but using yarn workspace
 
+### Vercel Settings
+
+<img src="./vercel-settings.png" />
+
 ### Development
 
 ```
@@ -14,7 +18,7 @@ yarn dev
 yarn build
 ```
 
-For `@nestjs/platform-fastify`, replace `packages/server/src/main.ts` with folloing code
+For `@nestjs/platform-fastify`, edit `packages/server/src/index.ts` with folloing code
 
 ```ts
 import 'reflect-metadata';

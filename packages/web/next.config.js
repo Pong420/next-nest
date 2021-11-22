@@ -1,7 +1,7 @@
 // @ts-check
 
 const withTM = require('next-transpile-modules')(['@next-nest/server']);
-const { getDependencies } = require('./getDependencies');
+const { getDependencies } = require('./scripts/getDependencies');
 
 const { serverDeps } = getDependencies();
 
@@ -22,6 +22,10 @@ const config = {
 
     // Important: return the modified config
     return config;
+  },
+
+  api: {
+    bodyParser: false
   }
 };
 
